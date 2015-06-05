@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+  get 'chapters/index'
+
   devise_for :users
-  resources :livres
+  resources :livres do 
+    ressources :chapters
+  end 
 
 
   devise_scope :user do

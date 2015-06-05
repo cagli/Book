@@ -1,3 +1,4 @@
+
 <p id="notice"><%= notice %></p>
 
   
@@ -22,6 +23,9 @@
         <td><%= livre.autheur %></td>
         <td><%= livre.description %></td>
         <td><%= livre.avis %></td>
+        
+        <td><%=link_to "chapters", chapters_path(chapters)%></td>
+        
         <td><%= link_to 'Show', livre %></td>
         <td><%= link_to 'Edit', edit_livre_path(livre) %></td>
         <td><%= link_to 'Destroy', livre, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -33,19 +37,69 @@
 <br>
 
 <%= link_to 'Nouveau Livre', new_livre_path %>
-
-<%= current_user.profile_name %>
-
+<a href="#" class="button">Default Button</a>
 
 
-<%= if current_user.admin? %>
+<div>
+<% if current_user.admin? %>
 say yes
-<%=else %>
-  <%= current_user.profile_name %>
-<%= end%>
+<%else %>
+ Le nom de l'utilisateur est : <%= current_user.profile_name %> et il n'est pas admin
+<% end%>
+</div> 
 
 
-<% if user_signed_in? %>
+<div>
+
+<a href="#" data-background-color="#990000">Paint it red</a><br> 
+
+<a href="#" data-background-color="#009900" data-text-color="#FFFFFF">Paint it green</a><br> 
+
+<a href="#" data-background-color="#000099" data-text-color="#FFFFFF">Paint it blue</a><br> 
+
+
+<br> <br> <br> <br> 
+
+<%= form_for :user do |f| %>
+<table>
+  <tr>
+   <td>First name: <%= f.text_field :first_name %><br /></td>
+   <td>Last name : <%= f.text_field :last_name %><br /></td>
+   <td>Pseudo : <%= f.text_area :profile_name %><br /></td>
+   <td>Admin?    : <%= f.check_box :admin %><br /></td>
+ <td> <%= f.submit %> </td>
+  </tr>
+  </table>
+<% end %>
+
+
+
+
+
+
+
+<br> <br> <br> <br> 
+
+<% if current_user.profile_name ==="cagli" %>
+<%current_user.update_attribute :admin, true%>
+Maintenant cagli est admin
+<%else %>
+ Le nom de l'utilisateur est : <%= current_user.profile_name %> et il n'est pas admin
+<% end%>
+</div> 
+
+<div>
+<% if current_user.admin? %>  
+say yes donc je viens de tester si la personne est bien admin
+
+<%else %>
+ Le nom de l'utilisateur est : <%= current_user.profile_name %> et il n'est pas admin
+<% end%>
+</div> 
+
+
+
+<%if user_signed_in? %>
   <li>
   <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
   </li>
@@ -54,3 +108,48 @@ say yes
   <%= link_to('Login', new_user_session_path)  %>  
   </li>
 <% end %>
+
+
+
+
+
+
+<div class = "admin">
+  
+<!-- If you are using version 5.5 or greater you can use <ul>'s and <li>'s for Accordion markup --> 
+
+Tu crains du boudin / Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin Tu crains du boudin 
+  </div>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Profile</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>admin?</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+<tbody>
+ <% User.all.each do |user| %>
+     <tr>
+          <td><%= user.profile_name %></td>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
+          <td><%= user.email %></td>
+          <% if user.admin? %> 
+                  <td>admin</td>
+          <%else %>
+                  <td>pas admin</td>
+          <% end%>
+
+
+      </tr>
+  <% end%>
+</tbody>
+</table>

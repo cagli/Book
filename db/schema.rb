@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602172012) do
+ActiveRecord::Schema.define(version: 20150605104900) do
+
+  create_table "chapters", force: :cascade do |t|
+    t.integer  "livres_id"
+    t.string   "titre"
+    t.text     "description"
+    t.integer  "points"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "chapters", ["livres_id"], name: "index_chapters_on_livres_id"
 
   create_table "livres", force: :cascade do |t|
     t.string   "titre"

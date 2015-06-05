@@ -1,0 +1,22 @@
+<%# add navigation links to this file %>
+<li class="has-form">
+  <div class="row collapse">
+    <div class="large-8 small-9 columns">
+      <input type="text" placeholder="Find Stuff">
+    </div>
+    <div class="large-4 small-3 columns">
+      <a href="#" class="alert button expand">Search</a>
+    </div>
+  </div>
+</li>
+<%if user_signed_in? %>
+  <li ><%= current_user.profile_name %></li>
+  <li>
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+  </li>
+
+<% else %>
+  <li>
+  <%= link_to('Login', new_user_session_path)  %>  
+  </li>
+<% end %>
